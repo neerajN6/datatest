@@ -1,6 +1,7 @@
 package com.athrved.datatest;
 
 import android.os.AsyncTask;
+import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.sql.Connection;
@@ -11,8 +12,7 @@ public class Database {
 
     private Connection connection;
 
-    private final String host = "ec2-54-158-232-223.compute-1.amazonaws.com"; // For Amazon Postgresql
-    //private final String host = "35.44.16.169";  // For Google Cloud Postgresql
+    private final String host = "ec2-54-158-232-223.compute-1.amazonaws.com";
     private final String database = "ddgaguv61p4m63";
     private final int port = 5432;
     private final String user = "jfeitasqnyuanh";
@@ -23,12 +23,13 @@ public class Database {
     public Database()
 
     {
+
         this.url = String.format(this.url, this.host, this.port, this.database);
         connect();
-        getExtraConnection();
         //this.disconnect();
         System.out.println("connection status:" + status);
     }
+
 
     private void connect() {
         Thread thread = new Thread(new Runnable() {
@@ -38,6 +39,7 @@ public class Database {
                     Class.forName("org.postgresql.Driver");
                     connection = DriverManager.getConnection(url, user, pass);
                     status = true;
+                    getExtraConnection();
                     System.out.println("connected:" + status);
                 } catch (Exception e) {
                     status = false;
@@ -61,23 +63,24 @@ public class Database {
         try {
             Class.forName("org.postgresql.Driver");
             c = DriverManager.getConnection(url, user, pass);
+            c.setAutoCommit(false);
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "CREATE TABLE COMPANY " +
-                    "(ID INT PRIMARY KEY     NOT NULL," +
-                    " NAME           TEXT    NOT NULL, " +
-                    " AGE            INT     NOT NULL, " +
-                    " ADDRESS        CHAR(50), " +
-                    " SALARY         REAL)";
+            String sql = "INSERT INTO USERS (EMAIL,USERNAME) "
+                    + "VALUES ('nvnn@gmail.com','Neer')";
             stmt.executeUpdate(sql);
+
+
+
             stmt.close();
+            c.commit();
             c.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Table created successfully");
-
+        System.out.println("Records created successfully");
         return c;
+
     }
 }

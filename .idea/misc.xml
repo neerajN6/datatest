@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/user/AndroidStudioProjects/datatest/app/src/main/res/layout/activity_main.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/layout/activity_database.xml" value="0.2463768115942029" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2463768115942029" />
         <entry key="app/src/main/res/layout/activity_postgre_sqljdbc.xml" value="0.14387031408308004" />

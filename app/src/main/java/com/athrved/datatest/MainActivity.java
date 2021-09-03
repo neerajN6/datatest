@@ -15,12 +15,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Database db = new Database();
 
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),PostgreSQLJDBC.class);
-                startActivity(intent);
-            }
-        });
+
     }
 }
